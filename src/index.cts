@@ -10,22 +10,20 @@ import terser = require("terser");
  *
  * @returns {SuseeTypes.SuseePlugin} A Susee plugin object.
  */
-function suseeTerser(
+const suseeTerser: SuseeTypes.SuseePluginFunction = (
   terserMinifyOptions?: terser.MinifyOptions | undefined,
-): SuseeTypes.SuseePlugin {
+): SuseeTypes.SuseePlugin => {
   return {
     type: "post-process",
     async: true,
-    func: async function (code, file) {
-      if (file?.match(/.js/g)) {
-        const _code = (await terser.minify(code, terserMinifyOptions)).code;
-        if (_code) {
-          code = _code;
-        }
+    func: async function (code, _file) {
+      const _code = (await terser.minify(code, terserMinifyOptions)).code;
+      if (_code) {
+        code = _code;
       }
       return code;
     },
   };
-}
+};
 
 export = suseeTerser;
