@@ -10,9 +10,9 @@ import * as terser from "terser";
  *
  * @returns {SuseeTypes.SuseePlugin} A Susee plugin object.
  */
-const suseeTerser: SuseeTypes.SuseePluginFunction = (
+function suseeTerser(
   terserMinifyOptions?: terser.MinifyOptions | undefined,
-): SuseeTypes.SuseePlugin => {
+): SuseeTypes.SuseePlugin {
   return {
     type: "post-process",
     async: true,
@@ -24,6 +24,6 @@ const suseeTerser: SuseeTypes.SuseePluginFunction = (
       return code;
     },
   };
-};
+}
 
 export default suseeTerser;
